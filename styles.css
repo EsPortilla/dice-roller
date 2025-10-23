@@ -305,16 +305,6 @@ h1 {
     margin-top: 3rem;
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.results-container.one-dice-mode {
-    justify-content: center;
-}
-
-.results-container.one-dice-mode #result2 {
-    display: none;
 }
 
 .result {
@@ -325,14 +315,8 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 4px 6px var(--shadow-color);
     transition: all 0.3s ease;
-    flex: 1;
-    min-width: 200px;
-    max-width: 300px;
-}
-
-.results-container.two-dice-mode .result {
-    font-size: 1.2rem;
-    padding: 1rem;
+    min-width: 250px;
+    max-width: 500px;
 }
 
 .result.show {

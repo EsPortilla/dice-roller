@@ -58,14 +58,10 @@ twoDiceBtn.addEventListener('click', () => updateDiceMode(2));
 // Dice rolling functionality
 const dice1 = document.getElementById('dice1');
 const dice2 = document.getElementById('dice2');
-const result1 = document.getElementById('result1');
-const result2 = document.getElementById('result2');
+const resultDisplay = document.getElementById('result');
 
-// Track rolling state for each die
-const rollingState = {
-    1: false,
-    2: false
-};
+// Track rolling state
+let isRolling = false;
 
 // Define rotations for each face to show on top
 const diceRotations = {
@@ -77,27 +73,22 @@ const diceRotations = {
     6: { x: 90, y: 0, z: 0 }           // bottom face
 };
 
-// Quippy messages for each roll
-const rollMessages = {
-    1: "Ace in the hole!",
+// Craps lingo messages for combined rolls
+const crapsMessages = {
     2: "Snake eyes!",
-    3: "Hat trick!",
-    4: "Fantastic four!",
-    5: "High five!",
-    6: "Maxed out!"
+    3: "Ace deuce!",
+    4: "Little Joe!",
+    5: "Fever five!",
+    6: "Jimmy Hicks!",
+    7: "Natural seven!",
+    8: "Eighter from Decatur!",
+    9: "Nina!",
+    10: "Big Dick!",
+    11: "Yo-leven!",
+    12: "Boxcars!"
 };
 
-function rollDice(diceId) {
-    if (rollingState[diceId]) return;
-
-    const dice = document.getElementById(`dice${diceId}`);
-    const resultDisplay = document.getElementById(`result${diceId}`);
-
-    rollingState[diceId] = true;
-    dice.classList.add('rolling');
-    resultDisplay.classList.remove('show');
-    resultDisplay.querySelector('p').textContent = 'Rolling...';
-
+function rollSingleDie(dice) {
     // Generate random number between 1 and 6
     const randomNumber = Math.floor(Math.random() * 6) + 1;
 
@@ -115,50 +106,73 @@ function rollDice(diceId) {
     dice.style.setProperty('--final-y', `${finalY}deg`);
     dice.style.setProperty('--final-z', `${finalZ}deg`);
 
-    // Wait for animation to complete
-    setTimeout(() => {
-        dice.classList.remove('rolling');
-        dice.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg) rotateZ(${finalZ}deg)`;
+    dice.classList.add('rolling');
 
-        // Show result
-        resultDisplay.querySelector('p').textContent = rollMessages[randomNumber];
-        resultDisplay.classList.add('show');
-
-        rollingState[diceId] = false;
-    }, 1000); // Match animation duration
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            dice.classList.remove('rolling');
+            dice.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg) rotateZ(${finalZ}deg)`;
+            resolve(randomNumber);
+        }, 1000);
+    });
 }
 
-// Add click events to both dice
-dice1.addEventListener('click', () => rollDice(1));
-dice2.addEventListener('click', () => rollDice(2));
+function rollDice() {
+    if (isRolling) return;
+
+    isRolling = true;
+    resultDisplay.classList.remove('show');
+    resultDisplay.querySelector('p').textContent = 'Rolling...';
+
+    if (currentDiceCount === 1) {
+        // Roll only one die
+        rollSingleDie(dice1).then((result) => {
+            // For single die, use the craps message or just show the number
+            resultDisplay.querySelector('p').textContent = `Rolled a ${result}!`;
+            resultDisplay.classList.add('show');
+            isRolling = false;
+        });
+    } else {
+        // Roll both dice simultaneously
+        Promise.all([
+            rollSingleDie(dice1),
+            rollSingleDie(dice2)
+        ]).then(([result1, result2]) => {
+            const sum = result1 + result2;
+            resultDisplay.querySelector('p').textContent = `${sum} - ${crapsMessages[sum]}`;
+            resultDisplay.classList.add('show');
+            isRolling = false;
+        });
+    }
+}
+
+// Add click events to both dice - clicking either one rolls both
+dice1.addEventListener('click', rollDice);
+dice2.addEventListener('click', rollDice);
 
 // Add touch support for mobile
 dice1.addEventListener('touchstart', (e) => {
     e.preventDefault();
-    rollDice(1);
+    rollDice();
 });
 
 dice2.addEventListener('touchstart', (e) => {
     e.preventDefault();
-    rollDice(2);
+    rollDice();
 });
 
-// Optional: Add keyboard support (press Space to roll all visible dice)
+// Optional: Add keyboard support (press Space to roll)
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
         e.preventDefault();
-        rollDice(1);
-        if (currentDiceCount === 2) {
-            setTimeout(() => rollDice(2), 100); // Slight delay for visual effect
-        }
+        rollDice();
     }
 });
 
 // Add visual feedback on interaction
 function addDiceInteraction(dice) {
     dice.addEventListener('mousedown', () => {
-        const diceId = dice.dataset.diceId;
-        if (!rollingState[diceId]) {
+        if (!isRolling) {
             dice.style.transform = dice.style.transform + ' scale(0.95)';
         }
     });
