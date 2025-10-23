@@ -83,21 +83,71 @@ h1 {
 }
 
 .instructions {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 1.2rem;
     opacity: 0.8;
+}
+
+.dice-count-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.toggle-btn {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid var(--accent-color);
+    border-radius: 25px;
+    background: var(--secondary-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.toggle-btn.active {
+    background: var(--accent-color);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.toggle-btn:active {
+    transform: scale(0.98);
 }
 
 .dice-container {
     margin: 3rem auto;
     perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    transition: all 0.3s ease;
+}
+
+.dice-container.one-dice-mode #scene2 {
+    display: none;
 }
 
 .scene {
     width: 200px;
     height: 200px;
-    margin: 0 auto;
     position: relative;
+    transition: all 0.3s ease;
+}
+
+.dice-container.two-dice-mode .scene {
+    width: 140px;
+    height: 140px;
 }
 
 .dice {
@@ -108,6 +158,11 @@ h1 {
     transition: transform 0.1s ease;
     cursor: pointer;
     transform: rotateX(-20deg) rotateY(-20deg);
+}
+
+.dice-container.two-dice-mode .dice {
+    width: 140px;
+    height: 140px;
 }
 
 .dice:hover {
@@ -147,15 +202,31 @@ h1 {
     display: grid;
     padding: 20px;
     box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.3s ease;
 }
 
-/* Position each face */
+.dice-container.two-dice-mode .face {
+    width: 140px;
+    height: 140px;
+    padding: 14px;
+    border-radius: 14px;
+}
+
+/* Position each face - one dice mode */
 .front  { transform: rotateY(0deg) translateZ(100px); }
 .back   { transform: rotateY(180deg) translateZ(100px); }
 .right  { transform: rotateY(90deg) translateZ(100px); }
 .left   { transform: rotateY(-90deg) translateZ(100px); }
 .top    { transform: rotateX(90deg) translateZ(100px); }
 .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+/* Position each face - two dice mode */
+.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(70px); }
+.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(70px); }
+.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(70px); }
+.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(70px); }
+.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(70px); }
+.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(70px); }
 
 /* Dot configurations */
 .dot {
@@ -165,6 +236,12 @@ h1 {
     border-radius: 50%;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     place-self: center;
+    transition: all 0.3s ease;
+}
+
+.dice-container.two-dice-mode .dot {
+    width: 24px;
+    height: 24px;
 }
 
 /* Face 1 */
@@ -224,8 +301,23 @@ h1 {
 .bottom .dot:nth-child(5) { grid-column: 1; grid-row: 3; }
 .bottom .dot:nth-child(6) { grid-column: 3; grid-row: 3; }
 
-.result {
+.results-container {
     margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.results-container.one-dice-mode {
+    justify-content: center;
+}
+
+.results-container.one-dice-mode #result2 {
+    display: none;
+}
+
+.result {
     font-size: 1.5rem;
     font-weight: bold;
     padding: 1.5rem;
@@ -233,6 +325,14 @@ h1 {
     border-radius: 15px;
     box-shadow: 0 4px 6px var(--shadow-color);
     transition: all 0.3s ease;
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.results-container.two-dice-mode .result {
+    font-size: 1.2rem;
+    padding: 1rem;
 }
 
 .result.show {
@@ -276,5 +376,34 @@ h1 {
     .dot {
         width: 25px;
         height: 25px;
+    }
+
+    /* Two dice mode on mobile */
+    .dice-container.two-dice-mode .scene {
+        width: 110px;
+        height: 110px;
+    }
+
+    .dice-container.two-dice-mode .dice {
+        width: 110px;
+        height: 110px;
+    }
+
+    .dice-container.two-dice-mode .face {
+        width: 110px;
+        height: 110px;
+        padding: 11px;
+    }
+
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(55px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(55px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(55px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(55px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(55px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(55px); }
+
+    .dice-container.two-dice-mode .dot {
+        width: 18px;
+        height: 18px;
     }
 }
