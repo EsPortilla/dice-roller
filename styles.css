@@ -91,36 +91,79 @@ h1 {
 .dice-count-toggle {
     display: flex;
     justify-content: center;
-    gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.toggle-btn {
-    padding: 0.75rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border: 2px solid var(--accent-color);
-    border-radius: 25px;
-    background: var(--secondary-bg);
-    color: var(--text-color);
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
     cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--secondary-bg);
+    border: 2px solid var(--accent-color);
+    transition: 0.3s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--accent-color);
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider:before {
+    transform: translateX(46px);
+}
+
+.toggle-labels {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    pointer-events: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.label-one, .label-two {
+    z-index: 1;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
-.toggle-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-.toggle-btn.active {
-    background: var(--accent-color);
+input:not(:checked) ~ .toggle-labels .label-one {
     color: #fff;
-    transform: scale(1.05);
 }
 
-.toggle-btn:active {
-    transform: scale(0.98);
+input:checked ~ .toggle-labels .label-two {
+    color: #fff;
 }
 
 .dice-container {
@@ -129,8 +172,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
+    position: relative;
+    min-height: 250px;
     transition: all 0.3s ease;
 }
 
@@ -145,9 +188,24 @@ h1 {
     transition: all 0.3s ease;
 }
 
+.dice-container.two-dice-mode {
+    gap: 0;
+}
+
 .dice-container.two-dice-mode .scene {
     width: 140px;
     height: 140px;
+    position: absolute;
+}
+
+.dice-container.two-dice-mode #scene1 {
+    top: 20px;
+    left: calc(50% - 120px);
+}
+
+.dice-container.two-dice-mode #scene2 {
+    top: 50px;
+    left: calc(50% + 20px);
 }
 
 .dice {
