@@ -18,8 +18,7 @@ themeToggle.addEventListener('click', () => {
 });
 
 // Dice count toggle functionality
-const oneDiceBtn = document.getElementById('oneDiceBtn');
-const twoDiceBtn = document.getElementById('twoDiceBtn');
+const diceCountToggle = document.getElementById('diceCountToggle');
 const diceContainer = document.getElementById('diceContainer');
 const resultsContainer = document.querySelector('.results-container');
 
@@ -33,17 +32,19 @@ function updateDiceMode(count) {
     if (count === 1) {
         diceContainer.classList.remove('two-dice-mode');
         diceContainer.classList.add('one-dice-mode');
-        resultsContainer.classList.remove('two-dice-mode');
-        resultsContainer.classList.add('one-dice-mode');
-        oneDiceBtn.classList.add('active');
-        twoDiceBtn.classList.remove('active');
+        if (resultsContainer) {
+            resultsContainer.classList.remove('two-dice-mode');
+            resultsContainer.classList.add('one-dice-mode');
+        }
+        diceCountToggle.checked = false;
     } else {
         diceContainer.classList.remove('one-dice-mode');
         diceContainer.classList.add('two-dice-mode');
-        resultsContainer.classList.remove('one-dice-mode');
-        resultsContainer.classList.add('two-dice-mode');
-        oneDiceBtn.classList.remove('active');
-        twoDiceBtn.classList.add('active');
+        if (resultsContainer) {
+            resultsContainer.classList.remove('one-dice-mode');
+            resultsContainer.classList.add('two-dice-mode');
+        }
+        diceCountToggle.checked = true;
     }
 
     localStorage.setItem('diceCount', count);
@@ -52,8 +53,10 @@ function updateDiceMode(count) {
 // Initialize with saved preference
 updateDiceMode(currentDiceCount);
 
-oneDiceBtn.addEventListener('click', () => updateDiceMode(1));
-twoDiceBtn.addEventListener('click', () => updateDiceMode(2));
+// Listen to toggle changes
+diceCountToggle.addEventListener('change', () => {
+    updateDiceMode(diceCountToggle.checked ? 2 : 1);
+});
 
 // Dice rolling functionality
 const dice1 = document.getElementById('dice1');
@@ -76,6 +79,16 @@ const diceRotations = {
     4: { x: 0, y: 90, z: 0 },          // left face
     5: { x: -90, y: 0, z: 0 },         // top face
     6: { x: 90, y: 0, z: 0 }           // bottom face
+};
+
+// Single die messages
+const singleDieMessages = {
+    1: "Ace in the hole!",
+    2: "Snake eyes!",
+    3: "Hat trick!",
+    4: "Fantastic four!",
+    5: "High five!",
+    6: "Maxed out!"
 };
 
 // Craps lingo messages for combined rolls
@@ -132,7 +145,7 @@ function rollDice() {
     if (currentDiceCount === 1) {
         // Roll only one die
         rollSingleDie(dice1).then((result) => {
-            resultDisplay.querySelector('p').textContent = `Rolled a ${result}!`;
+            resultDisplay.querySelector('p').textContent = singleDieMessages[result];
             resultDisplay.classList.add('show');
             isRolling = false;
         }).catch((error) => {
@@ -147,7 +160,7 @@ function rollDice() {
         ]).then(([result1, result2]) => {
             const sum = result1 + result2;
             const message = crapsMessages[sum] || `${sum}!`;
-            resultDisplay.querySelector('p').textContent = `${sum} - ${message}`;
+            resultDisplay.querySelector('p').textContent = message;
             resultDisplay.classList.add('show');
             isRolling = false;
         }).catch((error) => {
