@@ -17,10 +17,55 @@ themeToggle.addEventListener('click', () => {
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
 
+// Dice count toggle functionality
+const oneDiceBtn = document.getElementById('oneDiceBtn');
+const twoDiceBtn = document.getElementById('twoDiceBtn');
+const diceContainer = document.getElementById('diceContainer');
+const resultsContainer = document.querySelector('.results-container');
+
+// Check for saved dice count preference or default to 2
+const savedDiceCount = localStorage.getItem('diceCount') || '2';
+let currentDiceCount = parseInt(savedDiceCount);
+
+function updateDiceMode(count) {
+    currentDiceCount = count;
+
+    if (count === 1) {
+        diceContainer.classList.remove('two-dice-mode');
+        diceContainer.classList.add('one-dice-mode');
+        resultsContainer.classList.remove('two-dice-mode');
+        resultsContainer.classList.add('one-dice-mode');
+        oneDiceBtn.classList.add('active');
+        twoDiceBtn.classList.remove('active');
+    } else {
+        diceContainer.classList.remove('one-dice-mode');
+        diceContainer.classList.add('two-dice-mode');
+        resultsContainer.classList.remove('one-dice-mode');
+        resultsContainer.classList.add('two-dice-mode');
+        oneDiceBtn.classList.remove('active');
+        twoDiceBtn.classList.add('active');
+    }
+
+    localStorage.setItem('diceCount', count);
+}
+
+// Initialize with saved preference
+updateDiceMode(currentDiceCount);
+
+oneDiceBtn.addEventListener('click', () => updateDiceMode(1));
+twoDiceBtn.addEventListener('click', () => updateDiceMode(2));
+
 // Dice rolling functionality
-const dice = document.getElementById('dice');
-const resultDisplay = document.getElementById('result');
-let isRolling = false;
+const dice1 = document.getElementById('dice1');
+const dice2 = document.getElementById('dice2');
+const result1 = document.getElementById('result1');
+const result2 = document.getElementById('result2');
+
+// Track rolling state for each die
+const rollingState = {
+    1: false,
+    2: false
+};
 
 // Define rotations for each face to show on top
 const diceRotations = {
@@ -42,10 +87,13 @@ const rollMessages = {
     6: "Maxed out!"
 };
 
-function rollDice() {
-    if (isRolling) return;
+function rollDice(diceId) {
+    if (rollingState[diceId]) return;
 
-    isRolling = true;
+    const dice = document.getElementById(`dice${diceId}`);
+    const resultDisplay = document.getElementById(`result${diceId}`);
+
+    rollingState[diceId] = true;
     dice.classList.add('rolling');
     resultDisplay.classList.remove('show');
     resultDisplay.querySelector('p').textContent = 'Rolling...';
@@ -76,41 +124,55 @@ function rollDice() {
         resultDisplay.querySelector('p').textContent = rollMessages[randomNumber];
         resultDisplay.classList.add('show');
 
-        isRolling = false;
+        rollingState[diceId] = false;
     }, 1000); // Match animation duration
 }
 
-// Add click event to dice
-dice.addEventListener('click', rollDice);
+// Add click events to both dice
+dice1.addEventListener('click', () => rollDice(1));
+dice2.addEventListener('click', () => rollDice(2));
 
 // Add touch support for mobile
-dice.addEventListener('touchstart', (e) => {
+dice1.addEventListener('touchstart', (e) => {
     e.preventDefault();
-    rollDice();
+    rollDice(1);
 });
 
-// Optional: Add keyboard support (press Space to roll)
+dice2.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    rollDice(2);
+});
+
+// Optional: Add keyboard support (press Space to roll all visible dice)
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
         e.preventDefault();
-        rollDice();
+        rollDice(1);
+        if (currentDiceCount === 2) {
+            setTimeout(() => rollDice(2), 100); // Slight delay for visual effect
+        }
     }
 });
 
 // Add visual feedback on interaction
-dice.addEventListener('mousedown', () => {
-    if (!isRolling) {
-        dice.style.transform = dice.style.transform + ' scale(0.95)';
-    }
-});
+function addDiceInteraction(dice) {
+    dice.addEventListener('mousedown', () => {
+        const diceId = dice.dataset.diceId;
+        if (!rollingState[diceId]) {
+            dice.style.transform = dice.style.transform + ' scale(0.95)';
+        }
+    });
 
-dice.addEventListener('mouseup', () => {
-    if (!isRolling) {
+    dice.addEventListener('mouseup', () => {
         dice.style.transform = dice.style.transform.replace(' scale(0.95)', '');
-    }
-});
+    });
+}
+
+addDiceInteraction(dice1);
+addDiceInteraction(dice2);
 
 // Initialize with a subtle animation
 window.addEventListener('load', () => {
-    dice.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+    dice1.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+    dice2.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
 });

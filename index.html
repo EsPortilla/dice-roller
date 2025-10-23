@@ -19,9 +19,51 @@
             <p>Click on the dice to roll!</p>
         </div>
 
-        <div class="dice-container">
-            <div class="scene">
-                <div class="dice" id="dice">
+        <div class="dice-count-toggle">
+            <button class="toggle-btn" id="oneDiceBtn">1 Die</button>
+            <button class="toggle-btn active" id="twoDiceBtn">2 Dice</button>
+        </div>
+
+        <div class="dice-container" id="diceContainer">
+            <div class="scene" id="scene1">
+                <div class="dice" id="dice1" data-dice-id="1">
+                    <div class="face front">
+                        <div class="dot"></div>
+                    </div>
+                    <div class="face back">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="face right">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="face left">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="face top">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="face bottom">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="scene" id="scene2">
+                <div class="dice" id="dice2" data-dice-id="2">
                     <div class="face front">
                         <div class="dot"></div>
                     </div>
@@ -59,8 +101,13 @@
             </div>
         </div>
 
-        <div class="result" id="result">
-            <p>Roll the dice!</p>
+        <div class="results-container">
+            <div class="result" id="result1">
+                <p>Roll the dice!</p>
+            </div>
+            <div class="result" id="result2">
+                <p>Roll the dice!</p>
+            </div>
         </div>
     </div>
 
