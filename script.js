@@ -22,6 +22,11 @@ const diceCountToggle = document.getElementById('diceCountToggle');
 const diceContainer = document.getElementById('diceContainer');
 const resultsContainer = document.querySelector('.results-container');
 
+// Get dice elements early so they're available in updateDiceMode
+const dice1 = document.getElementById('dice1');
+const dice2 = document.getElementById('dice2');
+const resultDisplay = document.getElementById('result');
+
 // Check for saved dice count preference or default to 2
 const savedDiceCount = localStorage.getItem('diceCount') || '2';
 let currentDiceCount = parseInt(savedDiceCount);
@@ -47,6 +52,14 @@ function updateDiceMode(count) {
         diceCountToggle.checked = true;
     }
 
+    // Reset both dice to isometric position when toggling
+    if (dice1) {
+        dice1.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+    }
+    if (dice2) {
+        dice2.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+    }
+
     localStorage.setItem('diceCount', count);
 }
 
@@ -58,12 +71,7 @@ diceCountToggle.addEventListener('change', () => {
     updateDiceMode(diceCountToggle.checked ? 2 : 1);
 });
 
-// Dice rolling functionality
-const dice1 = document.getElementById('dice1');
-const dice2 = document.getElementById('dice2');
-const resultDisplay = document.getElementById('result');
-
-// Check if elements exist
+// Check if dice elements exist
 if (!dice1 || !dice2 || !resultDisplay) {
     console.error('Required elements not found:', { dice1, dice2, resultDisplay });
 }
@@ -84,7 +92,7 @@ const diceRotations = {
 // Single die messages
 const singleDieMessages = {
     1: "Ace in the hole!",
-    2: "Snake eyes!",
+    2: "Deuce!",
     3: "Hat trick!",
     4: "Fantastic four!",
     5: "High five!",
