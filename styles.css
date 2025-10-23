@@ -31,139 +31,127 @@ body {
     background: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-.container {
-    text-align: center;
-    padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-}
-
-.header {
+/* Modern App Header */
+.app-header {
+    background: linear-gradient(135deg, var(--accent-color), var(--title-color));
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
     margin: 0;
-    color: var(--title-color);
-    transition: color 0.3s ease;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.5px;
 }
 
+/* SVG Theme Toggle */
 .theme-toggle {
-    background: var(--secondary-bg);
-    border: 2px solid var(--accent-color);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
-    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 6px var(--shadow-color);
+    backdrop-filter: blur(10px);
 }
 
 .theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
-    box-shadow: 0 6px 12px var(--shadow-color);
 }
 
 .theme-toggle:active {
     transform: scale(0.95);
 }
 
-.instructions {
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-    opacity: 0.8;
+.theme-icon {
+    color: #fff;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.dice-count-toggle {
+.sun-icon {
+    position: absolute;
+    opacity: 0;
+}
+
+.moon-icon {
+    opacity: 1;
+}
+
+:root.light-theme .sun-icon {
+    opacity: 1;
+}
+
+:root.light-theme .moon-icon {
+    opacity: 0;
+}
+
+.container {
+    text-align: center;
+    padding: 0 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+/* Modern Control Bar */
+.control-bar {
+    margin: 2rem auto;
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
 }
 
-/* Toggle Switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 80px;
-    height: 34px;
+.dice-count-selector {
+    display: inline-flex;
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border: 1px solid var(--accent-color);
 }
 
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--secondary-bg);
-    border: 2px solid var(--accent-color);
-    transition: 0.3s;
-    border-radius: 34px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--accent-color);
-    transition: 0.3s;
-    border-radius: 50%;
-}
-
-input:checked + .slider:before {
-    transform: translateX(46px);
-}
-
-.toggle-labels {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 12px;
-    pointer-events: none;
-    font-size: 0.9rem;
-    font-weight: 600;
+.count-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
     color: var(--text-color);
-}
-
-.label-one, .label-two {
-    z-index: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
     transition: all 0.3s ease;
+    position: relative;
 }
 
-input:not(:checked) ~ .toggle-labels .label-one {
-    color: #fff;
+.count-btn:hover {
+    background: rgba(128, 128, 128, 0.1);
 }
 
-input:checked ~ .toggle-labels .label-two {
+.count-btn.active {
+    background: var(--accent-color);
     color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.count-btn:active {
+    transform: scale(0.95);
 }
 
 .dice-container {
@@ -262,6 +250,32 @@ input:checked ~ .toggle-labels .label-two {
     box-shadow: 0 0 20px var(--shadow-color);
     transition: none;
 }
+
+/* Cube Corner Vertices */
+.face::before,
+.face::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-color);
+    z-index: 10;
+}
+
+.face::before {
+    top: -4px;
+    left: -4px;
+}
+
+.face::after {
+    top: -4px;
+    right: -4px;
+}
+
+/* Additional corner dots using existing dots' pseudo-elements would be complex,
+   so we'll style just top corners for visibility */
 
 .dice-container.two-dice-mode .face {
     width: 140px;
@@ -363,33 +377,64 @@ input:checked ~ .toggle-labels .label-two {
     margin-top: 3rem;
     display: flex;
     justify-content: center;
+    padding: 0 1rem;
 }
 
 .result {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 2rem;
     background: var(--secondary-bg);
-    border-radius: 15px;
-    box-shadow: 0 4px 6px var(--shadow-color);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px var(--shadow-color);
     transition: all 0.3s ease;
-    min-width: 250px;
+    min-width: 280px;
     max-width: 500px;
+    border: 1px solid var(--accent-color);
+    opacity: 0.7;
+    transform: translateY(10px);
 }
 
 .result.show {
-    animation: pulse 0.5s ease;
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    opacity: 1;
+    transform: translateY(0);
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive design */
 @media (max-width: 600px) {
+    .app-header {
+        padding: 1rem 1.5rem;
+    }
+
     h1 {
-        font-size: 2rem;
+        font-size: 1.4rem;
+    }
+
+    .theme-toggle {
+        width: 36px;
+        height: 36px;
+    }
+
+    .count-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .result {
+        font-size: 1.5rem;
+        padding: 1.5rem;
     }
 
     .scene {
