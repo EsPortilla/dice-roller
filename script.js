@@ -60,6 +60,12 @@ function updateDiceMode(count) {
         dice2.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
     }
 
+    // Reset result text
+    if (resultDisplay) {
+        resultDisplay.querySelector('p').textContent = 'Roll the dice!';
+        resultDisplay.classList.remove('show');
+    }
+
     localStorage.setItem('diceCount', count);
 }
 

@@ -185,7 +185,7 @@ input:checked ~ .toggle-labels .label-two {
     width: 200px;
     height: 200px;
     position: relative;
-    transition: width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
+    transition: none;
 }
 
 .dice-container.two-dice-mode {
@@ -213,7 +213,7 @@ input:checked ~ .toggle-labels .label-two {
     height: 200px;
     position: relative;
     transform-style: preserve-3d;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: none;
     cursor: pointer;
     transform: rotateX(-20deg) rotateY(-20deg);
 }
@@ -260,7 +260,7 @@ input:checked ~ .toggle-labels .label-two {
     display: grid;
     padding: 20px;
     box-shadow: 0 0 20px var(--shadow-color);
-    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease, border-radius 0.3s ease, transform 0s;
+    transition: none;
 }
 
 .dice-container.two-dice-mode .face {
@@ -294,7 +294,7 @@ input:checked ~ .toggle-labels .label-two {
     border-radius: 50%;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     place-self: center;
-    transition: width 0.3s ease, height 0.3s ease;
+    transition: none;
 }
 
 .dice-container.two-dice-mode .dot {
