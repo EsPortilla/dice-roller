@@ -6,6 +6,7 @@
     --dot-color: #1a1a2e;
     --accent-color: #0f3460;
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --title-color: #00d9ff;
 }
 
 :root.light-theme {
@@ -16,6 +17,7 @@
     --dot-color: #e74c3c;
     --accent-color: #3498db;
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --title-color: #ff6b35;
 }
 
 * {
@@ -52,10 +54,8 @@ body {
 h1 {
     font-size: 2.5rem;
     margin: 0;
-    background: linear-gradient(135deg, var(--accent-color), #e94560);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--title-color);
+    transition: color 0.3s ease;
 }
 
 .theme-toggle {
@@ -164,6 +164,7 @@ h1 {
     background: var(--dot-color);
     border-radius: 50%;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    place-self: center;
 }
 
 /* Face 1 */

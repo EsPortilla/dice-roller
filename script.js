@@ -32,6 +32,16 @@ const diceRotations = {
     6: { x: 90, y: 0, z: 0 }           // bottom face
 };
 
+// Quippy messages for each roll
+const rollMessages = {
+    1: "Ace in the hole!",
+    2: "Snake eyes!",
+    3: "Hat trick!",
+    4: "Fantastic four!",
+    5: "High five!",
+    6: "Maxed out!"
+};
+
 function rollDice() {
     if (isRolling) return;
 
@@ -63,7 +73,7 @@ function rollDice() {
         dice.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg) rotateZ(${finalZ}deg)`;
 
         // Show result
-        resultDisplay.querySelector('p').textContent = `You rolled a ${randomNumber}!`;
+        resultDisplay.querySelector('p').textContent = rollMessages[randomNumber];
         resultDisplay.classList.add('show');
 
         isRolling = false;
