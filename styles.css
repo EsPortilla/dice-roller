@@ -260,8 +260,7 @@ input:checked ~ .toggle-labels .label-two {
     display: grid;
     padding: 20px;
     box-shadow: 0 0 20px var(--shadow-color);
-    backface-visibility: hidden;
-    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease, border-radius 0.3s ease;
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease, border-radius 0.3s ease, transform 0s;
 }
 
 .dice-container.two-dice-mode .face {
