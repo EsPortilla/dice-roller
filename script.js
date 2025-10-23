@@ -60,6 +60,11 @@ const dice1 = document.getElementById('dice1');
 const dice2 = document.getElementById('dice2');
 const resultDisplay = document.getElementById('result');
 
+// Check if elements exist
+if (!dice1 || !dice2 || !resultDisplay) {
+    console.error('Required elements not found:', { dice1, dice2, resultDisplay });
+}
+
 // Track rolling state
 let isRolling = false;
 
@@ -127,9 +132,11 @@ function rollDice() {
     if (currentDiceCount === 1) {
         // Roll only one die
         rollSingleDie(dice1).then((result) => {
-            // For single die, use the craps message or just show the number
             resultDisplay.querySelector('p').textContent = `Rolled a ${result}!`;
             resultDisplay.classList.add('show');
+            isRolling = false;
+        }).catch((error) => {
+            console.error('Error rolling die:', error);
             isRolling = false;
         });
     } else {
@@ -139,27 +146,58 @@ function rollDice() {
             rollSingleDie(dice2)
         ]).then(([result1, result2]) => {
             const sum = result1 + result2;
-            resultDisplay.querySelector('p').textContent = `${sum} - ${crapsMessages[sum]}`;
+            const message = crapsMessages[sum] || `${sum}!`;
+            resultDisplay.querySelector('p').textContent = `${sum} - ${message}`;
             resultDisplay.classList.add('show');
+            isRolling = false;
+        }).catch((error) => {
+            console.error('Error rolling dice:', error);
             isRolling = false;
         });
     }
 }
 
 // Add click events to both dice - clicking either one rolls both
-dice1.addEventListener('click', rollDice);
-dice2.addEventListener('click', rollDice);
+if (dice1 && dice2) {
+    dice1.addEventListener('click', rollDice);
+    dice2.addEventListener('click', rollDice);
 
-// Add touch support for mobile
-dice1.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    rollDice();
-});
+    // Add touch support for mobile
+    dice1.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        rollDice();
+    });
 
-dice2.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    rollDice();
-});
+    dice2.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        rollDice();
+    });
+
+    // Add visual feedback on interaction
+    function addDiceInteraction(dice) {
+        dice.addEventListener('mousedown', () => {
+            if (!isRolling) {
+                const currentTransform = dice.style.transform || '';
+                if (!currentTransform.includes('scale(0.95)')) {
+                    dice.style.transform = currentTransform + ' scale(0.95)';
+                }
+            }
+        });
+
+        dice.addEventListener('mouseup', () => {
+            dice.style.transform = dice.style.transform.replace(' scale(0.95)', '');
+        });
+    }
+
+    addDiceInteraction(dice1);
+    addDiceInteraction(dice2);
+
+    // Initialize with a subtle animation
+    window.addEventListener('load', () => {
+        dice1.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+        dice2.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
+    });
+}
 
 // Optional: Add keyboard support (press Space to roll)
 document.addEventListener('keydown', (e) => {
@@ -167,26 +205,4 @@ document.addEventListener('keydown', (e) => {
         e.preventDefault();
         rollDice();
     }
-});
-
-// Add visual feedback on interaction
-function addDiceInteraction(dice) {
-    dice.addEventListener('mousedown', () => {
-        if (!isRolling) {
-            dice.style.transform = dice.style.transform + ' scale(0.95)';
-        }
-    });
-
-    dice.addEventListener('mouseup', () => {
-        dice.style.transform = dice.style.transform.replace(' scale(0.95)', '');
-    });
-}
-
-addDiceInteraction(dice1);
-addDiceInteraction(dice2);
-
-// Initialize with a subtle animation
-window.addEventListener('load', () => {
-    dice1.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
-    dice2.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
 });
