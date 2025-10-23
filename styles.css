@@ -10,14 +10,14 @@
 }
 
 :root.light-theme {
-    --bg-color: #f0f0f0;
+    --bg-color: #f5f5f7;
     --secondary-bg: #ffffff;
-    --text-color: #333;
+    --text-color: #1d1d1f;
     --dice-color: #fff;
     --dot-color: #e74c3c;
-    --accent-color: #3498db;
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --title-color: #ff6b35;
+    --accent-color: #ff6b6b;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --title-color: #ffd93d;
 }
 
 * {
@@ -187,12 +187,12 @@ h1 {
 }
 
 .dice-container.two-dice-mode #scene1 {
-    top: 20px;
+    top: 10px;
     left: calc(50% - 120px);
 }
 
 .dice-container.two-dice-mode #scene2 {
-    top: 50px;
+    top: 80px;
     left: calc(50% + 20px);
 }
 
@@ -250,32 +250,6 @@ h1 {
     box-shadow: 0 0 20px var(--shadow-color);
     transition: none;
 }
-
-/* Cube Corner Vertices */
-.face::before,
-.face::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: var(--accent-color);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent-color);
-    z-index: 10;
-}
-
-.face::before {
-    top: -4px;
-    left: -4px;
-}
-
-.face::after {
-    top: -4px;
-    right: -4px;
-}
-
-/* Additional corner dots using existing dots' pseudo-elements would be complex,
-   so we'll style just top corners for visibility */
 
 .dice-container.two-dice-mode .face {
     width: 140px;
@@ -410,6 +384,18 @@ h1 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Signature */
+.signature {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    opacity: 0.5;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 /* Responsive design */
