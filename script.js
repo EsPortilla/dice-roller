@@ -1,24 +1,22 @@
-// Theme toggle functionality
+// Theme toggle functionality with SVG icons
 const themeToggle = document.getElementById('themeToggle');
 const root = document.documentElement;
-const themeIcon = document.querySelector('.theme-icon');
 
 // Check for saved theme preference or default to dark
 const savedTheme = localStorage.getItem('theme') || 'dark';
 if (savedTheme === 'light') {
     root.classList.add('light-theme');
-    themeIcon.textContent = '☀️';
 }
 
 themeToggle.addEventListener('click', () => {
     root.classList.toggle('light-theme');
     const isLight = root.classList.contains('light-theme');
-    themeIcon.textContent = isLight ? '☀️' : '🌙';
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
 
-// Dice count toggle functionality
-const diceCountToggle = document.getElementById('diceCountToggle');
+// Dice count button controls
+const oneDieBtn = document.getElementById('oneDieBtn');
+const twoDiceBtn = document.getElementById('twoDiceBtn');
 const diceContainer = document.getElementById('diceContainer');
 const resultsContainer = document.querySelector('.results-container');
 
@@ -41,7 +39,8 @@ function updateDiceMode(count) {
             resultsContainer.classList.remove('two-dice-mode');
             resultsContainer.classList.add('one-dice-mode');
         }
-        diceCountToggle.checked = false;
+        oneDieBtn.classList.add('active');
+        twoDiceBtn.classList.remove('active');
     } else {
         diceContainer.classList.remove('one-dice-mode');
         diceContainer.classList.add('two-dice-mode');
@@ -49,7 +48,8 @@ function updateDiceMode(count) {
             resultsContainer.classList.remove('one-dice-mode');
             resultsContainer.classList.add('two-dice-mode');
         }
-        diceCountToggle.checked = true;
+        oneDieBtn.classList.remove('active');
+        twoDiceBtn.classList.add('active');
     }
 
     // Reset both dice to isometric position when toggling
@@ -72,10 +72,9 @@ function updateDiceMode(count) {
 // Initialize with saved preference
 updateDiceMode(currentDiceCount);
 
-// Listen to toggle changes
-diceCountToggle.addEventListener('change', () => {
-    updateDiceMode(diceCountToggle.checked ? 2 : 1);
-});
+// Listen to button clicks
+oneDieBtn.addEventListener('click', () => updateDiceMode(1));
+twoDiceBtn.addEventListener('click', () => updateDiceMode(2));
 
 // Check if dice elements exist
 if (!dice1 || !dice2 || !resultDisplay) {
