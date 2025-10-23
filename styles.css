@@ -1,0 +1,279 @@
+:root {
+    --bg-color: #1a1a2e;
+    --secondary-bg: #16213e;
+    --text-color: #eee;
+    --dice-color: #fff;
+    --dot-color: #1a1a2e;
+    --accent-color: #0f3460;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+:root.light-theme {
+    --bg-color: #f0f0f0;
+    --secondary-bg: #ffffff;
+    --text-color: #333;
+    --dice-color: #fff;
+    --dot-color: #e74c3c;
+    --accent-color: #3498db;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    background: linear-gradient(135deg, var(--accent-color), #e94560);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.theme-toggle {
+    background: var(--secondary-bg);
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.instructions {
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.dice-container {
+    margin: 3rem auto;
+    perspective: 1000px;
+}
+
+.scene {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.dice {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease;
+    cursor: pointer;
+    transform: rotateX(-20deg) rotateY(-20deg);
+}
+
+.dice:hover {
+    transform: rotateX(-20deg) rotateY(-20deg) scale(1.05);
+}
+
+.dice.rolling {
+    animation: roll 1s ease-out;
+    cursor: not-allowed;
+}
+
+@keyframes roll {
+    0% {
+        transform: rotateX(-20deg) rotateY(-20deg);
+    }
+    25% {
+        transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg);
+    }
+    50% {
+        transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg);
+    }
+    75% {
+        transform: rotateX(1080deg) rotateY(540deg) rotateZ(270deg);
+    }
+    100% {
+        transform: rotateX(var(--final-x, 0deg)) rotateY(var(--final-y, 0deg)) rotateZ(var(--final-z, 0deg));
+    }
+}
+
+.face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: var(--dice-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 20px;
+    display: grid;
+    padding: 20px;
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+/* Position each face */
+.front  { transform: rotateY(0deg) translateZ(100px); }
+.back   { transform: rotateY(180deg) translateZ(100px); }
+.right  { transform: rotateY(90deg) translateZ(100px); }
+.left   { transform: rotateY(-90deg) translateZ(100px); }
+.top    { transform: rotateX(90deg) translateZ(100px); }
+.bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+/* Dot configurations */
+.dot {
+    width: 35px;
+    height: 35px;
+    background: var(--dot-color);
+    border-radius: 50%;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Face 1 */
+.front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Face 2 */
+.back {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+.back .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.back .dot:nth-child(2) { grid-column: 3; grid-row: 3; }
+
+/* Face 3 */
+.right {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+.right .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.right .dot:nth-child(2) { grid-column: 2; grid-row: 2; }
+.right .dot:nth-child(3) { grid-column: 3; grid-row: 3; }
+
+/* Face 4 */
+.left {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+.left .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.left .dot:nth-child(2) { grid-column: 3; grid-row: 1; }
+.left .dot:nth-child(3) { grid-column: 1; grid-row: 3; }
+.left .dot:nth-child(4) { grid-column: 3; grid-row: 3; }
+
+/* Face 5 */
+.top {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+.top .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.top .dot:nth-child(2) { grid-column: 3; grid-row: 1; }
+.top .dot:nth-child(3) { grid-column: 2; grid-row: 2; }
+.top .dot:nth-child(4) { grid-column: 1; grid-row: 3; }
+.top .dot:nth-child(5) { grid-column: 3; grid-row: 3; }
+
+/* Face 6 */
+.bottom {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+.bottom .dot:nth-child(1) { grid-column: 1; grid-row: 1; }
+.bottom .dot:nth-child(2) { grid-column: 3; grid-row: 1; }
+.bottom .dot:nth-child(3) { grid-column: 1; grid-row: 2; }
+.bottom .dot:nth-child(4) { grid-column: 3; grid-row: 2; }
+.bottom .dot:nth-child(5) { grid-column: 1; grid-row: 3; }
+.bottom .dot:nth-child(6) { grid-column: 3; grid-row: 3; }
+
+.result {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1.5rem;
+    background: var(--secondary-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+.result.show {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .scene {
+        width: 150px;
+        height: 150px;
+    }
+
+    .dice {
+        width: 150px;
+        height: 150px;
+    }
+
+    .face {
+        width: 150px;
+        height: 150px;
+        padding: 15px;
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(75px); }
+    .back   { transform: rotateY(180deg) translateZ(75px); }
+    .right  { transform: rotateY(90deg) translateZ(75px); }
+    .left   { transform: rotateY(-90deg) translateZ(75px); }
+    .top    { transform: rotateX(90deg) translateZ(75px); }
+    .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+    .dot {
+        width: 25px;
+        height: 25px;
+    }
+}
