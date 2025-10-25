@@ -82,11 +82,7 @@ h1 {
 
 :root.neon-theme h1 {
     color: #deff00;
-    text-shadow: 0 2px 20px rgba(222, 255, 0, 0.4);
-    letter-spacing: 0.5px;
-    text-transform: none;
-    font-size: 1.8rem;
-    font-weight: 700;
+    text-shadow: none;
 }
 
 /* Theme Toggle */
@@ -277,7 +273,7 @@ h1 {
 }
 
 :root.neon-theme .dot {
-    background: #ffffff;
+    background: #000000;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
