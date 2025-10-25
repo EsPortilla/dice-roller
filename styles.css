@@ -76,7 +76,7 @@ h1 {
     background: rgba(222, 255, 0, 0.15);
     backdrop-filter: blur(40px) saturate(200%);
     -webkit-backdrop-filter: blur(40px) saturate(200%);
-    border-bottom: 2px solid rgba(222, 255, 0, 0.6);
+    border-bottom: none;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -277,7 +277,7 @@ h1 {
 }
 
 :root.neon-theme .dot {
-    background: #808080;
+    background: #ffffff;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -429,18 +429,18 @@ h1 {
 }
 
 :root.neon-theme .dice-count-selector {
-    background: #deff00;
-    border: 1px solid #deff00;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(222, 255, 0, 0.5);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 :root.neon-theme .count-btn {
-    color: #0a0a0a;
+    color: #deff00;
 }
 
 :root.neon-theme .count-btn.active {
-    background: rgba(0, 0, 0, 0.3);
-    color: #deff00;
+    background: #deff00;
+    color: #0a0a0a;
 }
 
 /* Enhanced theme toggle for neon */
