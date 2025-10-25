@@ -1,17 +1,41 @@
-// Theme toggle functionality with SVG icons
+// Theme toggle functionality - cycles through 3 themes
 const themeToggle = document.getElementById('themeToggle');
+const themeName = document.getElementById('themeName');
 const root = document.documentElement;
+
+const themes = ['dark', 'light', 'neon'];
+let currentThemeIndex = 0;
 
 // Check for saved theme preference or default to dark
 const savedTheme = localStorage.getItem('theme') || 'dark';
-if (savedTheme === 'light') {
-    root.classList.add('light-theme');
+currentThemeIndex = themes.indexOf(savedTheme);
+if (currentThemeIndex === -1) currentThemeIndex = 0;
+
+function applyTheme(theme) {
+    // Remove all theme classes
+    root.classList.remove('light-theme', 'neon-theme');
+
+    // Apply the selected theme
+    if (theme === 'light') {
+        root.classList.add('light-theme');
+        themeName.textContent = 'Light';
+    } else if (theme === 'neon') {
+        root.classList.add('neon-theme');
+        themeName.textContent = 'Neon';
+    } else {
+        themeName.textContent = 'Dark';
+    }
+
+    localStorage.setItem('theme', theme);
 }
 
+// Apply saved theme on load
+applyTheme(themes[currentThemeIndex]);
+
+// Toggle through themes on click
 themeToggle.addEventListener('click', () => {
-    root.classList.toggle('light-theme');
-    const isLight = root.classList.contains('light-theme');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    applyTheme(themes[currentThemeIndex]);
 });
 
 // Dice count button controls

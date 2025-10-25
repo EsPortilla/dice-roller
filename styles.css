@@ -22,6 +22,18 @@
     --dice-border-color: #3498db;
 }
 
+:root.neon-theme {
+    --bg-color: #0a0a0a;
+    --secondary-bg: #1a1a1a;
+    --text-color: #ffffff;
+    --dice-color: #1a1a1a;
+    --dot-color: #deff00;
+    --accent-color: #deff00;
+    --shadow-color: rgba(222, 255, 0, 0.3);
+    --title-color: #deff00;
+    --dice-border-color: #deff00;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -59,50 +71,36 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-/* SVG Theme Toggle */
+/* Theme Toggle */
 .theme-toggle {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    min-width: 70px;
 }
 
 .theme-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .theme-toggle:active {
     transform: scale(0.95);
 }
 
-.theme-icon {
+.theme-name {
     color: #fff;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.sun-icon {
-    position: absolute;
-    opacity: 0;
-}
-
-.moon-icon {
-    opacity: 1;
-}
-
-:root.light-theme .sun-icon {
-    opacity: 1;
-}
-
-:root.light-theme .moon-icon {
-    opacity: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .container {
@@ -253,6 +251,13 @@ h1 {
     transition: none;
 }
 
+/* Neon theme special effects */
+:root.neon-theme .face {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px var(--shadow-color), inset 0 0 20px rgba(222, 255, 0, 0.1);
+}
+
 .dice-container.two-dice-mode .face {
     width: 140px;
     height: 140px;
@@ -371,6 +376,13 @@ h1 {
     transform: translateY(10px);
 }
 
+/* Neon theme result card */
+:root.neon-theme .result {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 24px var(--shadow-color), 0 0 40px rgba(222, 255, 0, 0.2);
+}
+
 .result.show {
     animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     opacity: 1;
@@ -411,8 +423,12 @@ h1 {
     }
 
     .theme-toggle {
-        width: 36px;
-        height: 36px;
+        padding: 0.4rem 0.8rem;
+        min-width: 60px;
+    }
+
+    .theme-name {
+        font-size: 0.8rem;
     }
 
     .count-btn {
