@@ -23,7 +23,7 @@
 }
 
 :root.neon-theme {
-    --bg-color: #0a0a0a;
+    --bg-color: #2a2a2a;
     --secondary-bg: #1a1a1a;
     --text-color: #ffffff;
     --dice-color: #2a2a2a;
@@ -71,18 +71,18 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-/* Neon theme header */
+/* Neon theme header with glassmorphism */
 :root.neon-theme .app-header {
-    background: #deff00;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    border-bottom: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(222, 255, 0, 0.15);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border-bottom: 2px solid rgba(222, 255, 0, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 :root.neon-theme h1 {
-    color: #4a4a4a;
-    text-shadow: none;
+    color: #deff00;
+    text-shadow: 0 2px 20px rgba(222, 255, 0, 0.4);
     letter-spacing: 0.5px;
     text-transform: none;
     font-size: 1.8rem;
@@ -399,13 +399,15 @@ h1 {
     transform: translateY(10px);
 }
 
-/* Neon theme result card */
+/* Neon theme result card with glassmorphism */
 :root.neon-theme .result {
-    background: rgba(26, 26, 26, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(222, 255, 0, 0.3);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    background: rgba(222, 255, 0, 0.1);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 2px solid rgba(222, 255, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 60px rgba(222, 255, 0, 0.2);
     color: #deff00;
 }
 
@@ -427,14 +429,18 @@ h1 {
 }
 
 :root.neon-theme .dice-count-selector {
-    background: #1a1a1a;
+    background: #deff00;
     border: 1px solid #deff00;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-:root.neon-theme .count-btn.active {
-    background: #deff00;
+:root.neon-theme .count-btn {
     color: #0a0a0a;
+}
+
+:root.neon-theme .count-btn.active {
+    background: rgba(0, 0, 0, 0.3);
+    color: #deff00;
 }
 
 /* Enhanced theme toggle for neon */
