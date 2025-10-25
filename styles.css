@@ -71,6 +71,18 @@ h1 {
     letter-spacing: 0.5px;
 }
 
+/* Neon theme header */
+:root.neon-theme .app-header {
+    background: #0a0a0a;
+    border-bottom: 2px solid #deff00;
+    box-shadow: 0 4px 12px rgba(222, 255, 0, 0.3), 0 0 40px rgba(222, 255, 0, 0.1);
+}
+
+:root.neon-theme h1 {
+    color: #deff00;
+    text-shadow: 0 0 20px rgba(222, 255, 0, 0.5), 0 0 40px rgba(222, 255, 0, 0.3);
+}
+
 /* Theme Toggle */
 .theme-toggle {
     background: rgba(255, 255, 255, 0.2);
@@ -253,7 +265,7 @@ h1 {
 
 /* Neon theme special effects */
 :root.neon-theme .face {
-    background: rgba(26, 26, 26, 0.8);
+    background: #1f1f1f;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 30px var(--shadow-color), inset 0 0 20px rgba(222, 255, 0, 0.1);
 }
@@ -378,9 +390,10 @@ h1 {
 
 /* Neon theme result card */
 :root.neon-theme .result {
-    background: rgba(26, 26, 26, 0.8);
+    background: #1f1f1f;
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 24px var(--shadow-color), 0 0 40px rgba(222, 255, 0, 0.2);
+    color: #deff00;
 }
 
 .result.show {
@@ -398,6 +411,19 @@ h1 {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Neon theme control buttons */
+:root.neon-theme .count-btn.active {
+    background: #deff00;
+    color: #0a0a0a;
+    box-shadow: 0 2px 4px rgba(222, 255, 0, 0.4), 0 0 20px rgba(222, 255, 0, 0.3);
+}
+
+:root.neon-theme .dice-count-selector {
+    background: #1a1a1a;
+    border: 1px solid #deff00;
+    box-shadow: 0 2px 8px rgba(222, 255, 0, 0.2);
 }
 
 /* Signature */
