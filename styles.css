@@ -175,7 +175,7 @@ h1 {
     justify-content: center;
     align-items: center;
     position: relative;
-    min-height: 250px;
+    min-height: 280px;
     transition: all 0.3s ease;
 }
 
@@ -191,23 +191,12 @@ h1 {
 }
 
 .dice-container.two-dice-mode {
-    gap: 0;
+    gap: 5rem;
 }
 
 .dice-container.two-dice-mode .scene {
     width: 140px;
     height: 140px;
-    position: absolute;
-}
-
-.dice-container.two-dice-mode #scene1 {
-    top: 10px;
-    left: calc(50% - 120px);
-}
-
-.dice-container.two-dice-mode #scene2 {
-    top: 80px;
-    left: calc(50% + 20px);
 }
 
 .dice {
@@ -466,8 +455,87 @@ h1 {
     letter-spacing: 0.5px;
 }
 
-/* Responsive design */
-@media (max-width: 600px) {
+/* Large screens - keep content centered at reasonable size */
+@media (min-width: 900px) {
+    .container {
+        max-width: 720px;
+    }
+
+    .dice-container {
+        min-height: 320px;
+    }
+
+    .dice-container.two-dice-mode {
+        gap: 7rem;
+    }
+}
+
+/* Tablet breakpoint */
+@media (max-width: 768px) and (min-width: 481px) {
+    .scene {
+        width: 170px;
+        height: 170px;
+    }
+
+    .dice {
+        width: 170px;
+        height: 170px;
+    }
+
+    .face {
+        width: 170px;
+        height: 170px;
+        padding: 17px;
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(85px); }
+    .back   { transform: rotateY(180deg) translateZ(85px); }
+    .right  { transform: rotateY(90deg) translateZ(85px); }
+    .left   { transform: rotateY(-90deg) translateZ(85px); }
+    .top    { transform: rotateX(90deg) translateZ(85px); }
+    .bottom { transform: rotateX(-90deg) translateZ(85px); }
+
+    .dot {
+        width: 28px;
+        height: 28px;
+    }
+
+    .dice-container.two-dice-mode {
+        gap: 4rem;
+    }
+
+    .dice-container.two-dice-mode .scene {
+        width: 120px;
+        height: 120px;
+    }
+
+    .dice-container.two-dice-mode .dice {
+        width: 120px;
+        height: 120px;
+    }
+
+    .dice-container.two-dice-mode .face {
+        width: 120px;
+        height: 120px;
+        padding: 12px;
+        border-radius: 12px;
+    }
+
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(60px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(60px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(60px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(60px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(60px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(60px); }
+
+    .dice-container.two-dice-mode .dot {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 480px) {
     .app-header {
         padding: 1rem 1.5rem;
     }
@@ -496,59 +564,69 @@ h1 {
     }
 
     .scene {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
     }
 
     .dice {
-        width: 150px;
-        height: 150px;
+        width: 130px;
+        height: 130px;
     }
 
     .face {
-        width: 150px;
-        height: 150px;
-        padding: 15px;
+        width: 130px;
+        height: 130px;
+        padding: 13px;
+        border-radius: 13px;
     }
 
-    .front  { transform: rotateY(0deg) translateZ(75px); }
-    .back   { transform: rotateY(180deg) translateZ(75px); }
-    .right  { transform: rotateY(90deg) translateZ(75px); }
-    .left   { transform: rotateY(-90deg) translateZ(75px); }
-    .top    { transform: rotateX(90deg) translateZ(75px); }
-    .bottom { transform: rotateX(-90deg) translateZ(75px); }
+    .front  { transform: rotateY(0deg) translateZ(65px); }
+    .back   { transform: rotateY(180deg) translateZ(65px); }
+    .right  { transform: rotateY(90deg) translateZ(65px); }
+    .left   { transform: rotateY(-90deg) translateZ(65px); }
+    .top    { transform: rotateX(90deg) translateZ(65px); }
+    .bottom { transform: rotateX(-90deg) translateZ(65px); }
 
     .dot {
-        width: 25px;
-        height: 25px;
+        width: 22px;
+        height: 22px;
+    }
+
+    .dice-container {
+        min-height: 220px;
     }
 
     /* Two dice mode on mobile */
+    .dice-container.two-dice-mode {
+        gap: 2rem;
+    }
+
     .dice-container.two-dice-mode .scene {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
     }
 
     .dice-container.two-dice-mode .dice {
-        width: 110px;
-        height: 110px;
+        width: 100px;
+        height: 100px;
     }
 
     .dice-container.two-dice-mode .face {
-        width: 110px;
-        height: 110px;
-        padding: 11px;
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        border-radius: 10px;
     }
 
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(55px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(55px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(55px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(55px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(55px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(55px); }
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(50px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(50px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(50px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(50px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(50px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(50px); }
 
     .dice-container.two-dice-mode .dot {
-        width: 18px;
-        height: 18px;
+        width: 16px;
+        height: 16px;
     }
 }
