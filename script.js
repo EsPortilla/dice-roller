@@ -108,6 +108,47 @@ if (!dice1 || !dice2 || !resultDisplay) {
 // Track rolling state
 let isRolling = false;
 
+function playDiceSound() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+
+    const ctx = new AudioContext();
+    const rollDuration = 0.9;
+    const numClicks = 9;
+
+    for (let i = 0; i < numClicks; i++) {
+        // Clicks are denser at the start, sparser at the end (natural deceleration)
+        const t = (Math.pow(i / numClicks, 1.5)) * rollDuration;
+        const bufferSize = Math.floor(ctx.sampleRate * 0.04);
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let j = 0; j < bufferSize; j++) {
+            data[j] = Math.random() * 2 - 1;
+        }
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+
+        const gainNode = ctx.createGain();
+        const volume = 0.18 * (1 - (i / numClicks) * 0.4);
+        gainNode.gain.setValueAtTime(0, ctx.currentTime + t);
+        gainNode.gain.linearRampToValueAtTime(volume, ctx.currentTime + t + 0.004);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.04);
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 600 + Math.random() * 600;
+        filter.Q.value = 0.8;
+
+        source.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(ctx.destination);
+        source.start(ctx.currentTime + t);
+    }
+
+    setTimeout(() => { try { ctx.close(); } catch (e) {} }, (rollDuration + 0.3) * 1000);
+}
+
 // Define rotations for each face to show on top
 const diceRotations = {
     1: { x: 0, y: 0, z: 0 },           // front face
@@ -176,6 +217,7 @@ function rollDice() {
     if (isRolling) return;
 
     isRolling = true;
+    playDiceSound();
     resultDisplay.classList.remove('show');
     resultDisplay.querySelector('p').textContent = 'Rolling...';
 
