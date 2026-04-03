@@ -173,7 +173,7 @@ h1 {
     perspective: 1000px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
     min-height: 310px;
     transition: all 0.3s ease;
@@ -200,11 +200,11 @@ h1 {
 }
 
 .dice-container.two-dice-mode #scene1 {
-    margin-top: 0;
+    align-self: flex-start;
 }
 
 .dice-container.two-dice-mode #scene2 {
-    margin-top: 3rem;
+    align-self: flex-end;
 }
 
 .dice {
@@ -475,10 +475,7 @@ h1 {
 
     .dice-container.two-dice-mode {
         gap: 7.6rem;
-    }
-
-    .dice-container.two-dice-mode #scene2 {
-        margin-top: 3.5rem;
+        min-height: 360px;
     }
 
     .dice-container.two-dice-mode .scene {
@@ -576,10 +573,7 @@ h1 {
     /* Two dice mode on mobile */
     .dice-container.two-dice-mode {
         gap: 2.4rem;
-    }
-
-    .dice-container.two-dice-mode #scene2 {
-        margin-top: 1.5rem;
+        min-height: 270px;
     }
 
     .dice-container.two-dice-mode .scene {
