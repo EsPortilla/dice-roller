@@ -109,44 +109,47 @@ if (!dice1 || !dice2 || !resultDisplay) {
 let isRolling = false;
 
 function playDiceSound() {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
 
-    const ctx = new AudioContext();
-    const rollDuration = 0.9;
-    const numClicks = 9;
+        const ctx = new AudioContext();
+        // Manual deceleration: clicks start fast, slow down toward the end
+        const clickTimes = [0, 0.08, 0.17, 0.27, 0.38, 0.50, 0.62, 0.73, 0.83];
 
-    for (let i = 0; i < numClicks; i++) {
-        // Clicks are denser at the start, sparser at the end (natural deceleration)
-        const t = (Math.pow(i / numClicks, 1.5)) * rollDuration;
-        const bufferSize = Math.floor(ctx.sampleRate * 0.04);
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let j = 0; j < bufferSize; j++) {
-            data[j] = Math.random() * 2 - 1;
-        }
+        clickTimes.forEach((t, i) => {
+            const sampleRate = ctx.sampleRate;
+            const duration = 0.07; // 70ms click sound
+            const bufferSize = Math.floor(sampleRate * duration);
+            const buffer = ctx.createBuffer(1, bufferSize, sampleRate);
+            const data = buffer.getChannelData(0);
 
-        const source = ctx.createBufferSource();
-        source.buffer = buffer;
+            // Bake amplitude envelope directly into buffer: sharp attack, exponential decay
+            for (let j = 0; j < bufferSize; j++) {
+                const envelope = Math.exp(-j / (bufferSize * 0.25));
+                data[j] = (Math.random() * 2 - 1) * envelope;
+            }
 
-        const gainNode = ctx.createGain();
-        const volume = 0.18 * (1 - (i / numClicks) * 0.4);
-        gainNode.gain.setValueAtTime(0, ctx.currentTime + t);
-        gainNode.gain.linearRampToValueAtTime(volume, ctx.currentTime + t + 0.004);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.04);
+            const source = ctx.createBufferSource();
+            source.buffer = buffer;
 
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 600 + Math.random() * 600;
-        filter.Q.value = 0.8;
+            // Highpass to cut low rumble, leaving the sharp clack character
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'highpass';
+            filter.frequency.value = 150;
 
-        source.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        source.start(ctx.currentTime + t);
-    }
+            const gain = ctx.createGain();
+            // Volume fades slightly as dice slow down
+            gain.gain.value = 0.5 * (1 - i * 0.04);
 
-    setTimeout(() => { try { ctx.close(); } catch (e) {} }, (rollDuration + 0.3) * 1000);
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+            source.start(ctx.currentTime + t);
+        });
+
+        setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1200);
+    } catch (e) {}
 }
 
 // Define rotations for each face to show on top

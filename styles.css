@@ -191,12 +191,12 @@ h1 {
 }
 
 .dice-container.two-dice-mode {
-    gap: 5rem;
+    gap: 6rem;
 }
 
 .dice-container.two-dice-mode .scene {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
 }
 
 .dice {
@@ -210,8 +210,8 @@ h1 {
 }
 
 .dice-container.two-dice-mode .dice {
-    width: 140px;
-    height: 140px;
+    width: 180px;
+    height: 180px;
 }
 
 .dice:hover {
@@ -267,10 +267,10 @@ h1 {
 }
 
 .dice-container.two-dice-mode .face {
-    width: 140px;
-    height: 140px;
-    padding: 14px;
-    border-radius: 14px;
+    width: 180px;
+    height: 180px;
+    padding: 18px;
+    border-radius: 18px;
 }
 
 /* Position each face - one dice mode */
@@ -282,12 +282,12 @@ h1 {
 .bottom { transform: rotateX(-90deg) translateZ(100px); }
 
 /* Position each face - two dice mode */
-.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(70px); }
-.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(70px); }
-.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(70px); }
-.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(70px); }
-.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(70px); }
-.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(70px); }
+.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(90px); }
+.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(90px); }
+.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(90px); }
+.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(90px); }
+.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(90px); }
+.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(90px); }
 
 /* Dot configurations */
 .dot {
@@ -301,8 +301,8 @@ h1 {
 }
 
 .dice-container.two-dice-mode .dot {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
 }
 
 /* Face 1 */
@@ -466,42 +466,104 @@ h1 {
     }
 
     .dice-container.two-dice-mode {
-        gap: 7rem;
+        gap: 8rem;
+    }
+
+    .dice-container.two-dice-mode .scene {
+        width: 200px;
+        height: 200px;
+    }
+
+    .dice-container.two-dice-mode .dice {
+        width: 200px;
+        height: 200px;
+    }
+
+    .dice-container.two-dice-mode .face {
+        width: 200px;
+        height: 200px;
+        padding: 20px;
+        border-radius: 20px;
+    }
+
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(100px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(100px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(100px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(100px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    .dice-container.two-dice-mode .dot {
+        width: 35px;
+        height: 35px;
     }
 }
 
-/* Tablet breakpoint */
-@media (max-width: 768px) and (min-width: 481px) {
+/* Mobile breakpoint */
+@media (max-width: 600px) {
+    .app-header {
+        padding: 1rem 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .theme-toggle {
+        padding: 0.4rem 0.8rem;
+        min-width: 60px;
+    }
+
+    .theme-name {
+        font-size: 0.8rem;
+    }
+
+    .count-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .result {
+        font-size: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .dice-container {
+        min-height: 220px;
+    }
+
     .scene {
-        width: 170px;
-        height: 170px;
+        width: 150px;
+        height: 150px;
     }
 
     .dice {
-        width: 170px;
-        height: 170px;
+        width: 150px;
+        height: 150px;
     }
 
     .face {
-        width: 170px;
-        height: 170px;
-        padding: 17px;
+        width: 150px;
+        height: 150px;
+        padding: 15px;
+        border-radius: 15px;
     }
 
-    .front  { transform: rotateY(0deg) translateZ(85px); }
-    .back   { transform: rotateY(180deg) translateZ(85px); }
-    .right  { transform: rotateY(90deg) translateZ(85px); }
-    .left   { transform: rotateY(-90deg) translateZ(85px); }
-    .top    { transform: rotateX(90deg) translateZ(85px); }
-    .bottom { transform: rotateX(-90deg) translateZ(85px); }
+    .front  { transform: rotateY(0deg) translateZ(75px); }
+    .back   { transform: rotateY(180deg) translateZ(75px); }
+    .right  { transform: rotateY(90deg) translateZ(75px); }
+    .left   { transform: rotateY(-90deg) translateZ(75px); }
+    .top    { transform: rotateX(90deg) translateZ(75px); }
+    .bottom { transform: rotateX(-90deg) translateZ(75px); }
 
     .dot {
-        width: 28px;
-        height: 28px;
+        width: 25px;
+        height: 25px;
     }
 
+    /* Two dice mode on mobile */
     .dice-container.two-dice-mode {
-        gap: 4rem;
+        gap: 2.5rem;
     }
 
     .dice-container.two-dice-mode .scene {
@@ -531,102 +593,5 @@ h1 {
     .dice-container.two-dice-mode .dot {
         width: 20px;
         height: 20px;
-    }
-}
-
-/* Mobile breakpoint */
-@media (max-width: 480px) {
-    .app-header {
-        padding: 1rem 1.5rem;
-    }
-
-    h1 {
-        font-size: 1.4rem;
-    }
-
-    .theme-toggle {
-        padding: 0.4rem 0.8rem;
-        min-width: 60px;
-    }
-
-    .theme-name {
-        font-size: 0.8rem;
-    }
-
-    .count-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
-    }
-
-    .result {
-        font-size: 1.5rem;
-        padding: 1.5rem;
-    }
-
-    .scene {
-        width: 130px;
-        height: 130px;
-    }
-
-    .dice {
-        width: 130px;
-        height: 130px;
-    }
-
-    .face {
-        width: 130px;
-        height: 130px;
-        padding: 13px;
-        border-radius: 13px;
-    }
-
-    .front  { transform: rotateY(0deg) translateZ(65px); }
-    .back   { transform: rotateY(180deg) translateZ(65px); }
-    .right  { transform: rotateY(90deg) translateZ(65px); }
-    .left   { transform: rotateY(-90deg) translateZ(65px); }
-    .top    { transform: rotateX(90deg) translateZ(65px); }
-    .bottom { transform: rotateX(-90deg) translateZ(65px); }
-
-    .dot {
-        width: 22px;
-        height: 22px;
-    }
-
-    .dice-container {
-        min-height: 220px;
-    }
-
-    /* Two dice mode on mobile */
-    .dice-container.two-dice-mode {
-        gap: 2rem;
-    }
-
-    .dice-container.two-dice-mode .scene {
-        width: 100px;
-        height: 100px;
-    }
-
-    .dice-container.two-dice-mode .dice {
-        width: 100px;
-        height: 100px;
-    }
-
-    .dice-container.two-dice-mode .face {
-        width: 100px;
-        height: 100px;
-        padding: 10px;
-        border-radius: 10px;
-    }
-
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(50px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(50px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(50px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(50px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(50px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(50px); }
-
-    .dice-container.two-dice-mode .dot {
-        width: 16px;
-        height: 16px;
     }
 }
