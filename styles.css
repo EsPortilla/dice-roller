@@ -170,7 +170,6 @@ h1 {
 
 .dice-container {
     margin: 3rem auto;
-    perspective: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -187,6 +186,7 @@ h1 {
     width: 200px;
     height: 200px;
     position: relative;
+    perspective: 1000px;
     transition: none;
 }
 
