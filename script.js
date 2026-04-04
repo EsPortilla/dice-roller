@@ -126,16 +126,18 @@ function getAudioCtx() {
     return _audioCtx;
 }
 
-// Unlock on first touch/click so audio is ready before the first roll
-document.addEventListener('touchstart', getAudioCtx, { once: true });
-document.addEventListener('click', getAudioCtx, { once: true });
+// Unlock/re-unlock on every touch/click — iOS can suspend the context between rolls
+document.addEventListener('touchstart', getAudioCtx);
+document.addEventListener('click', getAudioCtx);
 
 function playDiceSound() {
     try {
         const ctx = getAudioCtx();
         if (!ctx) return;
 
-        // Schedule synchronously — no Promise boundary, so iOS gesture window is preserved
+        // Re-resume in case iOS suspended the context since last roll
+        if (ctx.state === 'suspended') ctx.resume();
+
         const offset = ctx.currentTime + 0.05;
         const clicks = [
             { t: 0.00, v: 0.55 },

@@ -258,6 +258,8 @@ h1 {
     padding: 20px;
     box-shadow: 0 0 20px var(--shadow-color);
     transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Neon theme special effects */
