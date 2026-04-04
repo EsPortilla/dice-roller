@@ -191,23 +191,18 @@ h1 {
 }
 
 .dice-container.two-dice-mode {
-    min-height: 370px;
+    gap: 5.7rem;
+    align-items: flex-start;
+    min-height: 390px;
 }
 
 .dice-container.two-dice-mode .scene {
     width: 180px;
     height: 180px;
-    position: absolute;
-}
-
-.dice-container.two-dice-mode #scene1 {
-    top: 20px;
-    left: calc(50% - 215px);
 }
 
 .dice-container.two-dice-mode #scene2 {
-    top: 165px;
-    left: calc(50% + 35px);
+    transform: translateY(150px);
 }
 
 .dice {
@@ -477,17 +472,11 @@ h1 {
     }
 
     .dice-container.two-dice-mode {
-        min-height: 420px;
-    }
-
-    .dice-container.two-dice-mode #scene1 {
-        top: 20px;
-        left: calc(50% - 230px);
+        min-height: 450px;
     }
 
     .dice-container.two-dice-mode #scene2 {
-        top: 200px;
-        left: calc(50% + 30px);
+        transform: translateY(170px);
     }
 
     .dice-container.two-dice-mode .scene {
@@ -584,17 +573,12 @@ h1 {
 
     /* Two dice mode on mobile */
     .dice-container.two-dice-mode {
-        min-height: 265px;
-    }
-
-    .dice-container.two-dice-mode #scene1 {
-        top: 15px;
-        left: calc(50% - 145px);
+        gap: 3rem;
+        min-height: 280px;
     }
 
     .dice-container.two-dice-mode #scene2 {
-        top: 120px;
-        left: calc(50% + 25px);
+        transform: translateY(100px);
     }
 
     .dice-container.two-dice-mode .scene {

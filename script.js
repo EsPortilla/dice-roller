@@ -114,41 +114,42 @@ function playDiceSound() {
         if (!AudioContext) return;
 
         const ctx = new AudioContext();
-        // Manual deceleration: clicks start fast, slow down toward the end
-        const clickTimes = [0, 0.08, 0.17, 0.27, 0.38, 0.50, 0.62, 0.73, 0.83];
+        ctx.resume(); // ensure not suspended (required by some browsers)
 
-        clickTimes.forEach((t, i) => {
-            const sampleRate = ctx.sampleRate;
-            const duration = 0.07; // 70ms click sound
-            const bufferSize = Math.floor(sampleRate * duration);
-            const buffer = ctx.createBuffer(1, bufferSize, sampleRate);
-            const data = buffer.getChannelData(0);
+        // Small offset so scheduling is never behind ctx.currentTime
+        const offset = ctx.currentTime + 0.05;
 
-            // Bake amplitude envelope directly into buffer: sharp attack, exponential decay
-            for (let j = 0; j < bufferSize; j++) {
-                const envelope = Math.exp(-j / (bufferSize * 0.25));
-                data[j] = (Math.random() * 2 - 1) * envelope;
+        // Clicks decelerate naturally: dense at start, sparse at end
+        const clicks = [
+            { t: 0.00, v: 0.55 },
+            { t: 0.09, v: 0.52 },
+            { t: 0.18, v: 0.50 },
+            { t: 0.28, v: 0.47 },
+            { t: 0.39, v: 0.44 },
+            { t: 0.52, v: 0.40 },
+            { t: 0.65, v: 0.35 },
+            { t: 0.77, v: 0.30 },
+            { t: 0.86, v: 0.25 },
+        ];
+
+        clicks.forEach(({ t, v }) => {
+            const bufSize = Math.floor(ctx.sampleRate * 0.08);
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            // Quadratic decay envelope baked in — sharp attack, natural roll-off
+            for (let i = 0; i < bufSize; i++) {
+                data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 2);
             }
-
-            const source = ctx.createBufferSource();
-            source.buffer = buffer;
-
-            // Highpass to cut low rumble, leaving the sharp clack character
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'highpass';
-            filter.frequency.value = 150;
-
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
             const gain = ctx.createGain();
-            // Volume fades slightly as dice slow down
-            gain.gain.value = 0.5 * (1 - i * 0.04);
-
-            source.connect(filter);
-            filter.connect(gain);
+            gain.gain.value = v;
+            src.connect(gain);
             gain.connect(ctx.destination);
-            source.start(ctx.currentTime + t);
+            src.start(offset + t);
         });
 
-        setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1200);
+        setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1300);
     } catch (e) {}
 }
 
