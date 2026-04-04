@@ -108,45 +108,63 @@ if (!dice1 || !dice2 || !resultDisplay) {
 // Track rolling state
 let isRolling = false;
 
+// Shared AudioContext — created and unlocked once on first user gesture
+let _audioCtx = null;
+
+function getAudioCtx() {
+    if (_audioCtx && _audioCtx.state !== 'closed') return _audioCtx;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    _audioCtx = new AC();
+    // Play a silent 1-sample buffer to unlock iOS Safari audio immediately
+    const buf = _audioCtx.createBuffer(1, 1, 22050);
+    const src = _audioCtx.createBufferSource();
+    src.buffer = buf;
+    src.connect(_audioCtx.destination);
+    src.start(0);
+    _audioCtx.resume();
+    return _audioCtx;
+}
+
+// Unlock on first touch/click so audio is ready before the first roll
+document.addEventListener('touchstart', getAudioCtx, { once: true });
+document.addEventListener('click', getAudioCtx, { once: true });
+
 function playDiceSound() {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
+    try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
 
-    const ctx = new AudioContext();
-    const rollDuration = 0.9;
-    const numClicks = 9;
+        // Schedule synchronously — no Promise boundary, so iOS gesture window is preserved
+        const offset = ctx.currentTime + 0.05;
+        const clicks = [
+            { t: 0.00, v: 0.55 },
+            { t: 0.09, v: 0.52 },
+            { t: 0.18, v: 0.50 },
+            { t: 0.28, v: 0.47 },
+            { t: 0.39, v: 0.44 },
+            { t: 0.52, v: 0.40 },
+            { t: 0.65, v: 0.35 },
+            { t: 0.77, v: 0.30 },
+            { t: 0.86, v: 0.25 },
+        ];
 
-    for (let i = 0; i < numClicks; i++) {
-        // Clicks are denser at the start, sparser at the end (natural deceleration)
-        const t = (Math.pow(i / numClicks, 1.5)) * rollDuration;
-        const bufferSize = Math.floor(ctx.sampleRate * 0.04);
-        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let j = 0; j < bufferSize; j++) {
-            data[j] = Math.random() * 2 - 1;
-        }
-
-        const source = ctx.createBufferSource();
-        source.buffer = buffer;
-
-        const gainNode = ctx.createGain();
-        const volume = 0.18 * (1 - (i / numClicks) * 0.4);
-        gainNode.gain.setValueAtTime(0, ctx.currentTime + t);
-        gainNode.gain.linearRampToValueAtTime(volume, ctx.currentTime + t + 0.004);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.04);
-
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.value = 600 + Math.random() * 600;
-        filter.Q.value = 0.8;
-
-        source.connect(filter);
-        filter.connect(gainNode);
-        gainNode.connect(ctx.destination);
-        source.start(ctx.currentTime + t);
-    }
-
-    setTimeout(() => { try { ctx.close(); } catch (e) {} }, (rollDuration + 0.3) * 1000);
+        clicks.forEach(({ t, v }) => {
+            const bufSize = Math.floor(ctx.sampleRate * 0.08);
+            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+            const data = buf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) {
+                data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 2);
+            }
+            const src = ctx.createBufferSource();
+            src.buffer = buf;
+            const gain = ctx.createGain();
+            gain.gain.value = v;
+            src.connect(gain);
+            gain.connect(ctx.destination);
+            src.start(offset + t);
+        });
+    } catch (e) {}
 }
 
 // Define rotations for each face to show on top
