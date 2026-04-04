@@ -202,7 +202,7 @@ h1 {
 }
 
 .dice-container.two-dice-mode #scene2 {
-    transform: translateY(150px);
+    margin-top: 150px;
 }
 
 .dice {
@@ -476,7 +476,7 @@ h1 {
     }
 
     .dice-container.two-dice-mode #scene2 {
-        transform: translateY(170px);
+        margin-top: 170px;
     }
 
     .dice-container.two-dice-mode .scene {
@@ -578,7 +578,7 @@ h1 {
     }
 
     .dice-container.two-dice-mode #scene2 {
-        transform: translateY(100px);
+        margin-top: 100px;
     }
 
     .dice-container.two-dice-mode .scene {

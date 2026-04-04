@@ -114,42 +114,41 @@ function playDiceSound() {
         if (!AudioContext) return;
 
         const ctx = new AudioContext();
-        ctx.resume(); // ensure not suspended (required by some browsers)
 
-        // Small offset so scheduling is never behind ctx.currentTime
-        const offset = ctx.currentTime + 0.05;
+        // Wait for context to be running before scheduling — fixes "no sound on first roll"
+        ctx.resume().then(() => {
+            const offset = ctx.currentTime + 0.02;
 
-        // Clicks decelerate naturally: dense at start, sparse at end
-        const clicks = [
-            { t: 0.00, v: 0.55 },
-            { t: 0.09, v: 0.52 },
-            { t: 0.18, v: 0.50 },
-            { t: 0.28, v: 0.47 },
-            { t: 0.39, v: 0.44 },
-            { t: 0.52, v: 0.40 },
-            { t: 0.65, v: 0.35 },
-            { t: 0.77, v: 0.30 },
-            { t: 0.86, v: 0.25 },
-        ];
+            const clicks = [
+                { t: 0.00, v: 0.55 },
+                { t: 0.09, v: 0.52 },
+                { t: 0.18, v: 0.50 },
+                { t: 0.28, v: 0.47 },
+                { t: 0.39, v: 0.44 },
+                { t: 0.52, v: 0.40 },
+                { t: 0.65, v: 0.35 },
+                { t: 0.77, v: 0.30 },
+                { t: 0.86, v: 0.25 },
+            ];
 
-        clicks.forEach(({ t, v }) => {
-            const bufSize = Math.floor(ctx.sampleRate * 0.08);
-            const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-            const data = buf.getChannelData(0);
-            // Quadratic decay envelope baked in — sharp attack, natural roll-off
-            for (let i = 0; i < bufSize; i++) {
-                data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 2);
-            }
-            const src = ctx.createBufferSource();
-            src.buffer = buf;
-            const gain = ctx.createGain();
-            gain.gain.value = v;
-            src.connect(gain);
-            gain.connect(ctx.destination);
-            src.start(offset + t);
+            clicks.forEach(({ t, v }) => {
+                const bufSize = Math.floor(ctx.sampleRate * 0.08);
+                const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+                const data = buf.getChannelData(0);
+                for (let i = 0; i < bufSize; i++) {
+                    data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / bufSize, 2);
+                }
+                const src = ctx.createBufferSource();
+                src.buffer = buf;
+                const gain = ctx.createGain();
+                gain.gain.value = v;
+                src.connect(gain);
+                gain.connect(ctx.destination);
+                src.start(offset + t);
+            });
+
+            setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1300);
         });
-
-        setTimeout(() => { try { ctx.close(); } catch (e) {} }, 1300);
     } catch (e) {}
 }
 
