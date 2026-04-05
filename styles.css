@@ -285,20 +285,20 @@ h1 {
 }
 
 /* Position each face - one dice mode */
-.front  { transform: rotateY(0deg) translateZ(100px); }
-.back   { transform: rotateY(180deg) translateZ(100px); }
-.right  { transform: rotateY(90deg) translateZ(100px); }
-.left   { transform: rotateY(-90deg) translateZ(100px); }
-.top    { transform: rotateX(90deg) translateZ(100px); }
-.bottom { transform: rotateX(-90deg) translateZ(100px); }
+.front  { transform: rotateY(0deg) translateZ(101px); }
+.back   { transform: rotateY(180deg) translateZ(101px); }
+.right  { transform: rotateY(90deg) translateZ(101px); }
+.left   { transform: rotateY(-90deg) translateZ(101px); }
+.top    { transform: rotateX(90deg) translateZ(101px); }
+.bottom { transform: rotateX(-90deg) translateZ(101px); }
 
 /* Position each face - two dice mode */
-.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(90px); }
-.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(90px); }
-.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(90px); }
-.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(90px); }
-.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(90px); }
-.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(90px); }
+.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(91px); }
+.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(91px); }
+.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(91px); }
+.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(91px); }
+.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(91px); }
+.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(91px); }
 
 /* Dot configurations */
 .dot {
@@ -501,12 +501,12 @@ h1 {
         border-radius: 14px;
     }
 
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(100px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(100px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(100px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(100px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(100px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(100px); }
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(101px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(101px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(101px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(101px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(101px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(101px); }
 
     .dice-container.two-dice-mode .dot {
         width: 35px;
@@ -564,12 +564,12 @@ h1 {
         border-radius: 14px;
     }
 
-    .front  { transform: rotateY(0deg) translateZ(75px); }
-    .back   { transform: rotateY(180deg) translateZ(75px); }
-    .right  { transform: rotateY(90deg) translateZ(75px); }
-    .left   { transform: rotateY(-90deg) translateZ(75px); }
-    .top    { transform: rotateX(90deg) translateZ(75px); }
-    .bottom { transform: rotateX(-90deg) translateZ(75px); }
+    .front  { transform: rotateY(0deg) translateZ(76px); }
+    .back   { transform: rotateY(180deg) translateZ(76px); }
+    .right  { transform: rotateY(90deg) translateZ(76px); }
+    .left   { transform: rotateY(-90deg) translateZ(76px); }
+    .top    { transform: rotateX(90deg) translateZ(76px); }
+    .bottom { transform: rotateX(-90deg) translateZ(76px); }
 
     .dot {
         width: 25px;
@@ -603,12 +603,12 @@ h1 {
         border-radius: 14px;
     }
 
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(60px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(60px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(60px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(60px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(60px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(60px); }
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(61px); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(61px); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(61px); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(61px); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(61px); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(61px); }
 
     .dice-container.two-dice-mode .dot {
         width: 20px;
