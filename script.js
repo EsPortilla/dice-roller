@@ -77,6 +77,7 @@ function updateDiceMode(count) {
     }
 
     // Reset both dice to isometric position when toggling
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('is-settled'));
     if (dice1) {
         dice1.style.transform = 'rotateX(-20deg) rotateY(-20deg)';
     }
@@ -205,6 +206,9 @@ const crapsMessages = {
 };
 
 function rollSingleDie(dice) {
+    const scene = dice.parentElement;
+    scene.classList.remove('is-settled');
+
     // Generate random number between 1 and 6
     const randomNumber = Math.floor(Math.random() * 6) + 1;
 
@@ -228,6 +232,7 @@ function rollSingleDie(dice) {
         setTimeout(() => {
             dice.classList.remove('rolling');
             dice.style.transform = `rotateX(${finalX}deg) rotateY(${finalY}deg) rotateZ(${finalZ}deg)`;
+            scene.classList.add('is-settled');
             resolve(randomNumber);
         }, 1000);
     });
