@@ -170,6 +170,7 @@ h1 {
 
 .dice-container {
     margin: 3rem auto;
+    perspective: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,7 +187,6 @@ h1 {
     width: 200px;
     height: 200px;
     position: relative;
-    perspective: 1000px;
     transition: none;
 }
 
@@ -213,6 +213,7 @@ h1 {
     transition: none;
     cursor: pointer;
     transform: rotateX(-20deg) rotateY(-20deg);
+    background: var(--dice-color);
 }
 
 .dice-container.two-dice-mode .dice {
@@ -253,10 +254,9 @@ h1 {
     height: 200px;
     background: var(--dice-color);
     border: 2px solid var(--dice-border-color);
-    border-radius: 20px;
+    border-radius: 8px;
     display: grid;
     padding: 20px;
-    box-shadow: 0 0 20px var(--shadow-color);
     transition: none;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -266,7 +266,10 @@ h1 {
 :root.neon-theme .face {
     background: #deff00;
     border: 2px solid #deff00;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+:root.neon-theme .dice {
+    background: #deff00;
 }
 
 :root.neon-theme .dot {
@@ -278,7 +281,7 @@ h1 {
     width: 180px;
     height: 180px;
     padding: 18px;
-    border-radius: 18px;
+    border-radius: 8px;
 }
 
 /* Position each face - one dice mode */
@@ -495,7 +498,7 @@ h1 {
         width: 200px;
         height: 200px;
         padding: 20px;
-        border-radius: 20px;
+        border-radius: 8px;
     }
 
     .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(100px); }
@@ -558,7 +561,7 @@ h1 {
         width: 150px;
         height: 150px;
         padding: 15px;
-        border-radius: 15px;
+        border-radius: 8px;
     }
 
     .front  { transform: rotateY(0deg) translateZ(75px); }
@@ -597,7 +600,7 @@ h1 {
         width: 120px;
         height: 120px;
         padding: 12px;
-        border-radius: 12px;
+        border-radius: 8px;
     }
 
     .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(60px); }
