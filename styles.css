@@ -188,6 +188,17 @@ h1 {
     height: 200px;
     position: relative;
     transition: none;
+    clip-path: inset(0 round 14px);
+}
+
+.scene::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    border: 2px solid var(--dice-border-color);
+    z-index: 1;
+    pointer-events: none;
 }
 
 .dice-container.two-dice-mode {
@@ -252,7 +263,7 @@ h1 {
     position: absolute;
     width: 200px;
     height: 200px;
-    background: transparent;
+    background: var(--dice-color);
     border: none;
     border-radius: 0;
     display: grid;
@@ -262,25 +273,13 @@ h1 {
     -webkit-backface-visibility: hidden;
 }
 
-.face::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--dice-color);
-    border: 2px solid var(--dice-border-color);
-    border-radius: 14px;
-    pointer-events: none;
-}
-
-.dot {
-    position: relative;
-    z-index: 1;
-}
-
 /* Neon theme special effects */
-:root.neon-theme .face::before {
+:root.neon-theme .face {
     background: #deff00;
-    border: 2px solid #deff00;
+}
+
+:root.neon-theme .scene::after {
+    border-color: #deff00;
 }
 
 :root.neon-theme .dice {
@@ -563,6 +562,11 @@ h1 {
     .scene {
         width: 150px;
         height: 150px;
+        clip-path: inset(0 round 11px);
+    }
+
+    .scene::after {
+        border-radius: 11px;
     }
 
     .dice {
@@ -601,6 +605,11 @@ h1 {
     .dice-container.two-dice-mode .scene {
         width: 120px;
         height: 120px;
+        clip-path: inset(0 round 9px);
+    }
+
+    .dice-container.two-dice-mode .scene::after {
+        border-radius: 9px;
     }
 
     .dice-container.two-dice-mode .dice {
