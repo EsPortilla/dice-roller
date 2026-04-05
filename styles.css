@@ -204,16 +204,6 @@ h1 {
         radial-gradient(circle at 100% 100%, transparent 13px, var(--bg-color) 14px) 100% 100% / 28px 28px no-repeat;
 }
 
-/* Border frame overlay */
-.scene::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    border-radius: 14px;
-    border: 2px solid var(--dice-border-color);
-    pointer-events: none;
-}
 
 .dice-container.two-dice-mode {
     gap: 5.7rem;
@@ -292,9 +282,6 @@ h1 {
     background: #deff00;
 }
 
-:root.neon-theme .scene::after {
-    border-color: #deff00;
-}
 
 :root.neon-theme .dice {
     background: #deff00;
@@ -586,10 +573,6 @@ h1 {
             radial-gradient(circle at 100% 100%, transparent 10px, var(--bg-color) 11px) 100% 100% / 22px 22px no-repeat;
     }
 
-    .scene::after {
-        border-radius: 11px;
-    }
-
     .dice {
         width: 150px;
         height: 150px;
@@ -634,10 +617,6 @@ h1 {
             radial-gradient(circle at 100% 0, transparent 8px, var(--bg-color) 9px) 100% 0 / 18px 18px no-repeat,
             radial-gradient(circle at 0 100%, transparent 8px, var(--bg-color) 9px) 0 100% / 18px 18px no-repeat,
             radial-gradient(circle at 100% 100%, transparent 8px, var(--bg-color) 9px) 100% 100% / 18px 18px no-repeat;
-    }
-
-    .dice-container.two-dice-mode .scene::after {
-        border-radius: 9px;
     }
 
     .dice-container.two-dice-mode .dice {
