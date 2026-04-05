@@ -252,9 +252,9 @@ h1 {
     position: absolute;
     width: 200px;
     height: 200px;
-    background: var(--dice-color);
-    border: 2px solid var(--dice-border-color);
-    border-radius: 14px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     display: grid;
     padding: 20px;
     transition: none;
@@ -262,8 +262,23 @@ h1 {
     -webkit-backface-visibility: hidden;
 }
 
+.face::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--dice-color);
+    border: 2px solid var(--dice-border-color);
+    border-radius: 14px;
+    pointer-events: none;
+}
+
+.dot {
+    position: relative;
+    z-index: 1;
+}
+
 /* Neon theme special effects */
-:root.neon-theme .face {
+:root.neon-theme .face::before {
     background: #deff00;
     border: 2px solid #deff00;
 }
@@ -281,7 +296,6 @@ h1 {
     width: 180px;
     height: 180px;
     padding: 18px;
-    border-radius: 14px;
 }
 
 /* Position each face - one dice mode */
@@ -498,7 +512,6 @@ h1 {
         width: 200px;
         height: 200px;
         padding: 20px;
-        border-radius: 14px;
     }
 
     .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(101px); }
@@ -561,7 +574,6 @@ h1 {
         width: 150px;
         height: 150px;
         padding: 15px;
-        border-radius: 14px;
     }
 
     .front  { transform: rotateY(0deg) translateZ(76px); }
@@ -600,7 +612,6 @@ h1 {
         width: 120px;
         height: 120px;
         padding: 12px;
-        border-radius: 14px;
     }
 
     .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(61px); }
