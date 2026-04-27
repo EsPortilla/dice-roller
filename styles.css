@@ -8,7 +8,7 @@
     --shadow-color: rgba(0, 0, 0, 0.3);
     --title-color: #00d9ff;
     --dice-border-color: #0f3460;
-    --dice-edge-color: rgba(0, 0, 0, 0.18);
+    --dice-edge-color: #bbb;
 }
 
 :root.light-theme {
@@ -222,7 +222,7 @@ h1 {
     transition: none;
     cursor: pointer;
     transform: rotateX(-20deg) rotateY(-20deg);
-    background: var(--dice-color);
+    background: var(--dice-edge-color);
 }
 
 .dice-container.two-dice-mode .dice {
@@ -262,7 +262,7 @@ h1 {
     width: 200px;
     height: 200px;
     background: var(--dice-color);
-    border: 3px solid var(--dice-edge-color);
+    border: none;
     border-radius: 0;
     display: grid;
     padding: 20px;
@@ -293,20 +293,20 @@ h1 {
 }
 
 /* Position each face - one dice mode */
-.front  { transform: rotateY(0deg) translateZ(101px); }
-.back   { transform: rotateY(180deg) translateZ(101px); }
-.right  { transform: rotateY(90deg) translateZ(101px); }
-.left   { transform: rotateY(-90deg) translateZ(101px); }
-.top    { transform: rotateX(90deg) translateZ(101px); }
-.bottom { transform: rotateX(-90deg) translateZ(101px); }
+.front  { transform: rotateY(0deg) translateZ(101px) scale(0.97); }
+.back   { transform: rotateY(180deg) translateZ(101px) scale(0.97); }
+.right  { transform: rotateY(90deg) translateZ(101px) scale(0.97); }
+.left   { transform: rotateY(-90deg) translateZ(101px) scale(0.97); }
+.top    { transform: rotateX(90deg) translateZ(101px) scale(0.97); }
+.bottom { transform: rotateX(-90deg) translateZ(101px) scale(0.97); }
 
 /* Position each face - two dice mode */
-.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(91px); }
-.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(91px); }
-.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(91px); }
-.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(91px); }
-.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(91px); }
-.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(91px); }
+.dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(91px) scale(0.97); }
+.dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(91px) scale(0.97); }
+.dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(91px) scale(0.97); }
+.dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(91px) scale(0.97); }
+.dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(91px) scale(0.97); }
+.dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(91px) scale(0.97); }
 
 /* Dot configurations */
 .dot {
@@ -508,12 +508,12 @@ h1 {
         padding: 20px;
     }
 
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(101px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(101px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(101px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(101px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(101px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(101px); }
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(101px) scale(0.97); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(101px) scale(0.97); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(101px) scale(0.97); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(101px) scale(0.97); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(101px) scale(0.97); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(101px) scale(0.97); }
 
     .dice-container.two-dice-mode .dot {
         width: 35px;
@@ -572,15 +572,14 @@ h1 {
         width: 150px;
         height: 150px;
         padding: 15px;
-        border-width: 2px;
     }
 
-    .front  { transform: rotateY(0deg) translateZ(76px); }
-    .back   { transform: rotateY(180deg) translateZ(76px); }
-    .right  { transform: rotateY(90deg) translateZ(76px); }
-    .left   { transform: rotateY(-90deg) translateZ(76px); }
-    .top    { transform: rotateX(90deg) translateZ(76px); }
-    .bottom { transform: rotateX(-90deg) translateZ(76px); }
+    .front  { transform: rotateY(0deg) translateZ(76px) scale(0.97); }
+    .back   { transform: rotateY(180deg) translateZ(76px) scale(0.97); }
+    .right  { transform: rotateY(90deg) translateZ(76px) scale(0.97); }
+    .left   { transform: rotateY(-90deg) translateZ(76px) scale(0.97); }
+    .top    { transform: rotateX(90deg) translateZ(76px) scale(0.97); }
+    .bottom { transform: rotateX(-90deg) translateZ(76px) scale(0.97); }
 
     .dot {
         width: 25px;
@@ -615,15 +614,14 @@ h1 {
         width: 120px;
         height: 120px;
         padding: 12px;
-        border-width: 2px;
     }
 
-    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(61px); }
-    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(61px); }
-    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(61px); }
-    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(61px); }
-    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(61px); }
-    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(61px); }
+    .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(61px) scale(0.97); }
+    .dice-container.two-dice-mode .back   { transform: rotateY(180deg) translateZ(61px) scale(0.97); }
+    .dice-container.two-dice-mode .right  { transform: rotateY(90deg) translateZ(61px) scale(0.97); }
+    .dice-container.two-dice-mode .left   { transform: rotateY(-90deg) translateZ(61px) scale(0.97); }
+    .dice-container.two-dice-mode .top    { transform: rotateX(90deg) translateZ(61px) scale(0.97); }
+    .dice-container.two-dice-mode .bottom { transform: rotateX(-90deg) translateZ(61px) scale(0.97); }
 
     .dice-container.two-dice-mode .dot {
         width: 20px;
