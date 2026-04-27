@@ -8,6 +8,7 @@
     --shadow-color: rgba(0, 0, 0, 0.3);
     --title-color: #00d9ff;
     --dice-border-color: #0f3460;
+    --dice-edge-color: rgba(0, 0, 0, 0.18);
 }
 
 :root.light-theme {
@@ -20,6 +21,7 @@
     --shadow-color: rgba(0, 0, 0, 0.08);
     --title-color: #ffd93d;
     --dice-border-color: #3498db;
+    --dice-edge-color: #aaa;
 }
 
 :root.neon-theme {
@@ -32,6 +34,7 @@
     --shadow-color: rgba(0, 0, 0, 0.4);
     --title-color: #deff00;
     --dice-border-color: #deff00;
+    --dice-edge-color: #1a1a1a;
 }
 
 * {
@@ -259,7 +262,7 @@ h1 {
     width: 200px;
     height: 200px;
     background: var(--dice-color);
-    border: none;
+    border: 3px solid var(--dice-edge-color);
     border-radius: 0;
     display: grid;
     padding: 20px;
@@ -455,7 +458,7 @@ h1 {
 }
 
 :root.neon-theme .theme-name {
-    color: #0a0a0a;
+    color: #deff00;
     font-weight: 600;
 }
 
@@ -569,6 +572,7 @@ h1 {
         width: 150px;
         height: 150px;
         padding: 15px;
+        border-width: 2px;
     }
 
     .front  { transform: rotateY(0deg) translateZ(76px); }
@@ -611,6 +615,7 @@ h1 {
         width: 120px;
         height: 120px;
         padding: 12px;
+        border-width: 2px;
     }
 
     .dice-container.two-dice-mode .front  { transform: rotateY(0deg) translateZ(61px); }
