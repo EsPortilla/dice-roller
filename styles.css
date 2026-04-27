@@ -190,18 +190,9 @@ h1 {
     transition: none;
 }
 
-/* Corner mask: only active after a roll settles into flat 2D position */
-.scene.is-settled::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 0 0, var(--bg-color) 13px, transparent 14px) 0 0 / 28px 28px no-repeat,
-        radial-gradient(circle at 100% 0, var(--bg-color) 13px, transparent 14px) 100% 0 / 28px 28px no-repeat,
-        radial-gradient(circle at 0 100%, var(--bg-color) 13px, transparent 14px) 0 100% / 28px 28px no-repeat,
-        radial-gradient(circle at 100% 100%, var(--bg-color) 13px, transparent 14px) 100% 100% / 28px 28px no-repeat;
+/* Clip to rounded rect only after settling into flat 2D position */
+.scene.is-settled {
+    clip-path: inset(0 round 14px);
 }
 
 
@@ -565,12 +556,8 @@ h1 {
         height: 150px;
     }
 
-    .scene.is-settled::before {
-        background:
-            radial-gradient(circle at 0 0, var(--bg-color) 10px, transparent 11px) 0 0 / 22px 22px no-repeat,
-            radial-gradient(circle at 100% 0, var(--bg-color) 10px, transparent 11px) 100% 0 / 22px 22px no-repeat,
-            radial-gradient(circle at 0 100%, var(--bg-color) 10px, transparent 11px) 0 100% / 22px 22px no-repeat,
-            radial-gradient(circle at 100% 100%, var(--bg-color) 10px, transparent 11px) 100% 100% / 22px 22px no-repeat;
+    .scene.is-settled {
+        clip-path: inset(0 round 11px);
     }
 
     .dice {
@@ -611,12 +598,8 @@ h1 {
         height: 120px;
     }
 
-    .dice-container.two-dice-mode .scene.is-settled::before {
-        background:
-            radial-gradient(circle at 0 0, var(--bg-color) 8px, transparent 9px) 0 0 / 18px 18px no-repeat,
-            radial-gradient(circle at 100% 0, var(--bg-color) 8px, transparent 9px) 100% 0 / 18px 18px no-repeat,
-            radial-gradient(circle at 0 100%, var(--bg-color) 8px, transparent 9px) 0 100% / 18px 18px no-repeat,
-            radial-gradient(circle at 100% 100%, var(--bg-color) 8px, transparent 9px) 100% 100% / 18px 18px no-repeat;
+    .dice-container.two-dice-mode .scene.is-settled {
+        clip-path: inset(0 round 9px);
     }
 
     .dice-container.two-dice-mode .dice {
